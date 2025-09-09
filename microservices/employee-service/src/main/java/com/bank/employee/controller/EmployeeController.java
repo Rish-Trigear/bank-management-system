@@ -26,7 +26,7 @@ public class EmployeeController {
     
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginEmployee(@RequestBody LoginRequest request) {
-        LoginResponse response = employeeService.login(request.getEmail(), request.getPassword());
+        LoginResponse response = employeeService.login(request.getEmployeeId(), request.getPassword());
         return ResponseEntity.ok(response);
     }
     

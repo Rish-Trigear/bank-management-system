@@ -51,6 +51,9 @@ public class Customer {
     @Column(nullable = false)
     private Role role = Role.CUSTOMER;
     
+    @Column(nullable = false)
+    private boolean isActive = true;
+    
     @Transient
     private String password;
     
@@ -104,4 +107,7 @@ public class Customer {
     
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }
+    
+    public boolean isActive() { return isActive; }
+    public void setActive(boolean isActive) { this.isActive = isActive; }
 }

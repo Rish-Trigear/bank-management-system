@@ -109,4 +109,16 @@ public class TransactionController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/total-balance")
+    public ResponseEntity<Double> getTotalBankBalance() {
+        try {
+            logger.info("Fetching total bank balance");
+            double totalBalance = transactionService.getTotalBankBalance();
+            return ResponseEntity.ok(totalBalance);
+        } catch (Exception e) {
+            logger.error("Error fetching total bank balance: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

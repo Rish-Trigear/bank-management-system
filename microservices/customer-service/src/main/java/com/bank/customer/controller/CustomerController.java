@@ -59,4 +59,16 @@ public class CustomerController {
         Long count = customerService.getCustomerCount();
         return ResponseEntity.ok(count);
     }
+    
+    @PutMapping("/{ssnId}/activate")
+    public ResponseEntity<Customer> activateCustomer(@PathVariable String ssnId) {
+        Customer customer = customerService.activateCustomer(ssnId);
+        return ResponseEntity.ok(customer);
+    }
+    
+    @PutMapping("/{ssnId}/deactivate")
+    public ResponseEntity<Customer> deactivateCustomer(@PathVariable String ssnId) {
+        Customer customer = customerService.deactivateCustomer(ssnId);
+        return ResponseEntity.ok(customer);
+    }
 }

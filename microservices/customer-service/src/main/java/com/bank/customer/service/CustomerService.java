@@ -59,6 +59,10 @@ public class CustomerService {
         Customer customer = customerRepository.findBySsnId(ssnId)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
         
+        if (!customer.isActive()) {
+            throw new RuntimeException("Account is deactivated");
+        }
+        
         if (!passwordEncoder.matches(password, customer.getPasswordHash())) {
             throw new RuntimeException("Invalid credentials");
         }
@@ -107,5 +111,17 @@ public class CustomerService {
     
     public long getCustomerCount() {
         return customerRepository.count();
+    }
+    
+    public Customer activateCustomer(String ssnId) {
+        Customer customer = getCustomerBySsn(ssnId);
+        customer.setActive(true);
+        return customerRepository.save(customer);
+    }
+    
+    public Customer deactivateCustomer(String ssnId) {
+        Customer customer = getCustomerBySsn(ssnId);
+        customer.setActive(false);
+        return customerRepository.save(customer);
     }
 }

@@ -37,8 +37,8 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
     
-    public LoginResponse login(String email, String password) {
-        Employee employee = employeeRepository.findByEmail(email)
+    public LoginResponse login(String employeeId, String password) {
+        Employee employee = employeeRepository.findByEmployeeId(employeeId)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
         
         if (!passwordEncoder.matches(password, employee.getPasswordHash())) {

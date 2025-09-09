@@ -113,4 +113,22 @@ public class TransactionService {
     public long getTransactionCount() {
         return transactionRepository.count();
     }
+    
+    public double getTotalBankBalance() {
+        logger.info("Calculating total bank balance");
+        List<Transaction> allTransactions = transactionRepository.findAll();
+        
+        double totalBalance = 0.0;
+        
+        for (Transaction transaction : allTransactions) {
+            if (transaction.getType() == Transaction.TransactionType.CREDIT) {
+                totalBalance += transaction.getAmount();
+            } else if (transaction.getType() == Transaction.TransactionType.DEBIT) {
+                totalBalance -= transaction.getAmount();
+            }
+        }
+        
+        logger.info("Total bank balance calculated: {}", totalBalance);
+        return totalBalance;
+    }
 }

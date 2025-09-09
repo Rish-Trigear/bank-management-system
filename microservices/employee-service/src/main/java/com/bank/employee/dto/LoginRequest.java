@@ -1,13 +1,13 @@
 package com.bank.employee.dto;
 
 public class LoginRequest {
-    private String email;
+    private String employeeId;
     private String password;
     
     public LoginRequest() {}
     
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmployeeId() { return employeeId; }
+    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
     
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
