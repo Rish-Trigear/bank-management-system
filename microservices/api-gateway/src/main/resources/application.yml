@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+# JWT Configuration
+jwt:
+  secret: bank-microservices-shared-jwt-secret-2024
+  expiration: 86400000
+
+# Service URLs
+services:
+  customer:
+    url: http://localhost:8081
+  employee:
+    url: http://localhost:8082
+  transaction:
+    url: http://localhost:8083
+  loan:
+    url: http://localhost:8084
+
+logging:
+  level:
+    com.bank.gateway: INFO
