@@ -1,12 +1,14 @@
 package com.bank.transaction.service;
 
 import com.bank.transaction.model.Transaction;
+import com.bank.transaction.model.TransactionType;
 import com.bank.transaction.repository.TransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -118,17 +120,17 @@ public class TransactionService {
         logger.info("Calculating total bank balance");
         List<Transaction> allTransactions = transactionRepository.findAll();
         
-        double totalBalance = 0.0;
+        BigDecimal totalBalance = BigDecimal.ZERO;
         
         for (Transaction transaction : allTransactions) {
-            if (transaction.getType() == Transaction.TransactionType.CREDIT) {
-                totalBalance += transaction.getAmount();
-            } else if (transaction.getType() == Transaction.TransactionType.DEBIT) {
-                totalBalance -= transaction.getAmount();
+            if (transaction.getType() == TransactionType.CREDIT) {
+                totalBalance = totalBalance.add(transaction.getAmount());
+            } else if (transaction.getType() == TransactionType.DEBIT) {
+                totalBalance = totalBalance.subtract(transaction.getAmount());
             }
         }
         
         logger.info("Total bank balance calculated: {}", totalBalance);
-        return totalBalance;
+        return totalBalance.doubleValue();
     }
 }
